@@ -1,0 +1,9 @@
+{
+	"name": "FirstDFyuxuan",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "715192f0-9f4b-4c76-a882-0aff58bac19f",
+		"tenantId": "a8eec281-aaa3-4dae-ac9b-9a398b9215e7"
+	}
+}
