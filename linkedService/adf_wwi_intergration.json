@@ -1,0 +1,13 @@
+{
+	"name": "adf_wwi_intergration",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "this is the part that received from ods, changing table schema, and then apply type2 scd.",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=antra-adf.database.windows.net;initial catalog=wwi-intergration;user id=gao",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDc5NkQxQTk3LUMzMEItNDdCQS04MTEyLTM1MEUzOTAwMDk0NV9kOTVkYmU1Yi1kMWI0LTQzOWItYWJjMy1jYTNmNGJhMTQ5ZjUiDQp9"
+		}
+	}
+}
