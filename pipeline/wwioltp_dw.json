@@ -1,5 +1,5 @@
 {
-	"name": "copydatafromOLTP",
+	"name": "wwioltp_dw",
 	"properties": {
 		"description": "This is the part to flow data from oltp to ods",
 		"activities": [
