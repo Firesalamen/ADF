@@ -6,7 +6,7 @@
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=antra-adf.database.windows.net;initial catalog=wwi-oltp;user id=gao",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDc5NkQxQTk3LUMzMEItNDdCQS04MTEyLTM1MEUzOTAwMDk0NV80NzY0MWI4Ny1mNDc2LTQ0NGEtYTBlZi01MGU5NTdlMDY4N2EiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDc5NkQxQTk3LUMzMEItNDdCQS04MTEyLTM1MEUzOTAwMDk0NV85NTMwMGYxOS00MjA4LTRiYzQtYTgyNy1lYjI0ZTAxMThhZTAiDQp9"
 		}
 	}
 }
