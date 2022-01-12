@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset_xgh",
+	"name": "oltp_city",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_wwi",

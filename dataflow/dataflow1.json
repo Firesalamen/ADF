@@ -6,22 +6,19 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DestinationDataset_wye",
+						"referenceName": "oltp_all",
 						"type": "DatasetReference"
 					},
 					"name": "ods"
-				},
-				{
-					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [
+			"sinks": [
 				{
-					"name": "Select1"
+					"name": "sink1"
 				}
 			],
-			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ods\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nods select(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1"
+			"transformations": [],
+			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ods\nods sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }
