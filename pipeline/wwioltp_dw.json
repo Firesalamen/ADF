@@ -38,6 +38,11 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
+									"additionalColumns": [
+										{
+											"value": "$$COLUMN:"
+										}
+									],
 									"partitionOption": "None"
 								},
 								"sink": {
