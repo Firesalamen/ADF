@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach_nil",
+				"name": "oltp_to_ods",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -51,7 +51,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SourceDataset_nil",
+									"referenceName": "oltp_7_tables",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_schema": "@item().source.schema",
@@ -61,7 +61,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DestinationDataset_nil",
+									"referenceName": "ods_7_columns",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_schema": "@item().destination.schema",

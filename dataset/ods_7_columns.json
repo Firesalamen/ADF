@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_nil",
+	"name": "ods_7_columns",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_wwi_ods",
