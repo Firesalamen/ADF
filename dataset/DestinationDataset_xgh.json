@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_xgh",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_ods",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Application",
+			"table": "Cities"
+		}
+	}
+}
