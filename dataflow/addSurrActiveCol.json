@@ -13,42 +13,42 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_Customers",
+						"referenceName": "Ods_Customers",
 						"type": "DatasetReference"
 					},
 					"name": "customer"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_OrderLines",
+						"referenceName": "Ods_Sales_OrderLines",
 						"type": "DatasetReference"
 					},
 					"name": "OrderLines"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_Orders",
+						"referenceName": "Ods_Sales_Orders",
 						"type": "DatasetReference"
 					},
 					"name": "Orders"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_PackageTypes",
+						"referenceName": "Ods_PackageTypes",
 						"type": "DatasetReference"
 					},
 					"name": "PackageType"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_People",
+						"referenceName": "Ods_People",
 						"type": "DatasetReference"
 					},
 					"name": "People"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_StockItems",
+						"referenceName": "Ods_StockItems",
 						"type": "DatasetReference"
 					},
 					"name": "StockItems"
@@ -57,49 +57,49 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "int_Cities",
+						"referenceName": "Surr_Cities",
 						"type": "DatasetReference"
 					},
 					"name": "CitySurrAct"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_Customers",
+						"referenceName": "Surr_Customers",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_OrderLines",
+						"referenceName": "Surr_OrderLines",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_Orders",
+						"referenceName": "Surr_Orders",
 						"type": "DatasetReference"
 					},
 					"name": "sink3"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_PackageTypes",
+						"referenceName": "Surr_PackageType",
 						"type": "DatasetReference"
 					},
 					"name": "sink4"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_People",
+						"referenceName": "Surr_People",
 						"type": "DatasetReference"
 					},
 					"name": "sink5"
 				},
 				{
 					"dataset": {
-						"referenceName": "Int_StockItems",
+						"referenceName": "Surr_StockItems",
 						"type": "DatasetReference"
 					},
 					"name": "sink6"
@@ -149,7 +149,7 @@
 					"name": "SurrogateKey7"
 				}
 			],
-			"script": "source(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> City\nsource(output(\n\t\tCustomerID as integer,\n\t\tCustomerName as string,\n\t\tBillToCustomerID as integer,\n\t\tCustomerCategoryID as integer,\n\t\tBuyingGroupID as integer,\n\t\tPrimaryContactPersonID as integer,\n\t\tAlternateContactPersonID as integer,\n\t\tDeliveryMethodID as integer,\n\t\tDeliveryCityID as integer,\n\t\tPostalCityID as integer,\n\t\tCreditLimit as decimal(18,2),\n\t\tAccountOpenedDate as date,\n\t\tStandardDiscountPercentage as decimal(18,3),\n\t\tIsStatementSent as boolean,\n\t\tIsOnCreditHold as boolean,\n\t\tPaymentDays as integer,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tDeliveryRun as string,\n\t\tRunPosition as string,\n\t\tWebsiteURL as string,\n\t\tDeliveryAddressLine1 as string,\n\t\tDeliveryAddressLine2 as string,\n\t\tDeliveryPostalCode as string,\n\t\tDeliveryLocation as binary,\n\t\tPostalAddressLine1 as string,\n\t\tPostalAddressLine2 as string,\n\t\tPostalPostalCode as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> customer\nsource(output(\n\t\tOrderLineID as integer,\n\t\tOrderID as integer,\n\t\tStockItemID as integer,\n\t\tDescription as string,\n\t\tPackageTypeID as integer,\n\t\tQuantity as integer,\n\t\tUnitPrice as decimal(18,2),\n\t\tTaxRate as decimal(18,3),\n\t\tPickedQuantity as integer,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> OrderLines\nsource(output(\n\t\tOrderID as integer,\n\t\tCustomerID as integer,\n\t\tSalespersonPersonID as integer,\n\t\tPickedByPersonID as integer,\n\t\tContactPersonID as integer,\n\t\tBackorderOrderID as integer,\n\t\tOrderDate as date,\n\t\tExpectedDeliveryDate as date,\n\t\tCustomerPurchaseOrderNumber as string,\n\t\tIsUndersupplyBackordered as boolean,\n\t\tComments as string,\n\t\tDeliveryInstructions as string,\n\t\tInternalComments as string,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> Orders\nsource(output(\n\t\tPackageTypeID as integer,\n\t\tPackageTypeName as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> PackageType\nsource(output(\n\t\tPersonID as integer,\n\t\tFullName as string,\n\t\tPreferredName as string,\n\t\tSearchName as string,\n\t\tIsPermittedToLogon as boolean,\n\t\tLogonName as string,\n\t\tIsExternalLogonProvider as boolean,\n\t\tHashedPassword as binary,\n\t\tIsSystemUser as boolean,\n\t\tIsEmployee as boolean,\n\t\tIsSalesperson as boolean,\n\t\tUserPreferences as string,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tEmailAddress as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tOtherLanguages as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> People\nsource(output(\n\t\tStockItemID as integer,\n\t\tStockItemName as string,\n\t\tSupplierID as integer,\n\t\tColorID as integer,\n\t\tUnitPackageID as integer,\n\t\tOuterPackageID as integer,\n\t\tBrand as string,\n\t\tSize as string,\n\t\tLeadTimeDays as integer,\n\t\tQuantityPerOuter as integer,\n\t\tIsChillerStock as boolean,\n\t\tBarcode as string,\n\t\tTaxRate as decimal(18,3),\n\t\tUnitPrice as decimal(18,2),\n\t\tRecommendedRetailPrice as decimal(18,2),\n\t\tTypicalWeightPerUnit as decimal(18,3),\n\t\tMarketingComments as string,\n\t\tInternalComments as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tTags as string,\n\t\tSearchDetails as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> StockItems\nCity derive(IsActive = 1,\n\t\tSurrogate = 1) ~> addSurrkeyActive\naddSurrkeyActive keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey1\ncustomer derive(IsActive = 1,\n\t\tSurrogate = 1) ~> addCitySurrkey\nOrderLines derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn1\nOrders derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn2\nPackageType derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn3\nPeople derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn4\nStockItems derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn5\naddCitySurrkey keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey2\nDerivedColumn1 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey3\nDerivedColumn2 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey4\nDerivedColumn3 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey5\nDerivedColumn4 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey6\nDerivedColumn5 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey7\nSurrogateKey1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> CitySurrAct\nSurrogateKey2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tCustomerID as integer,\n\t\tCustomerName as string,\n\t\tBillToCustomerID as integer,\n\t\tCustomerCategoryID as integer,\n\t\tBuyingGroupID as integer,\n\t\tPrimaryContactPersonID as integer,\n\t\tAlternateContactPersonID as integer,\n\t\tDeliveryMethodID as integer,\n\t\tDeliveryCityID as integer,\n\t\tPostalCityID as integer,\n\t\tCreditLimit as decimal(18,2),\n\t\tAccountOpenedDate as date,\n\t\tStandardDiscountPercentage as decimal(18,3),\n\t\tIsStatementSent as boolean,\n\t\tIsOnCreditHold as boolean,\n\t\tPaymentDays as integer,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tDeliveryRun as string,\n\t\tRunPosition as string,\n\t\tWebsiteURL as string,\n\t\tDeliveryAddressLine1 as string,\n\t\tDeliveryAddressLine2 as string,\n\t\tDeliveryPostalCode as string,\n\t\tDeliveryLocation as binary,\n\t\tPostalAddressLine1 as string,\n\t\tPostalAddressLine2 as string,\n\t\tPostalPostalCode as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1\nSurrogateKey3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tOrderLineID as integer,\n\t\tOrderID as integer,\n\t\tStockItemID as integer,\n\t\tDescription as string,\n\t\tPackageTypeID as integer,\n\t\tQuantity as integer,\n\t\tUnitPrice as decimal(18,2),\n\t\tTaxRate as decimal(18,3),\n\t\tPickedQuantity as integer,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink2\nSurrogateKey4 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tOrderID as integer,\n\t\tCustomerID as integer,\n\t\tSalespersonPersonID as integer,\n\t\tPickedByPersonID as integer,\n\t\tContactPersonID as integer,\n\t\tBackorderOrderID as integer,\n\t\tOrderDate as date,\n\t\tExpectedDeliveryDate as date,\n\t\tCustomerPurchaseOrderNumber as string,\n\t\tIsUndersupplyBackordered as boolean,\n\t\tComments as string,\n\t\tDeliveryInstructions as string,\n\t\tInternalComments as string,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink3\nSurrogateKey5 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tPackageTypeID as integer,\n\t\tPackageTypeName as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink4\nSurrogateKey6 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tPersonID as integer,\n\t\tFullName as string,\n\t\tPreferredName as string,\n\t\tSearchName as string,\n\t\tIsPermittedToLogon as boolean,\n\t\tLogonName as string,\n\t\tIsExternalLogonProvider as boolean,\n\t\tHashedPassword as binary,\n\t\tIsSystemUser as boolean,\n\t\tIsEmployee as boolean,\n\t\tIsSalesperson as boolean,\n\t\tUserPreferences as string,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tEmailAddress as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tOtherLanguages as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink5\nSurrogateKey7 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tStockItemID as integer,\n\t\tStockItemName as string,\n\t\tSupplierID as integer,\n\t\tColorID as integer,\n\t\tUnitPackageID as integer,\n\t\tOuterPackageID as integer,\n\t\tBrand as string,\n\t\tSize as string,\n\t\tLeadTimeDays as integer,\n\t\tQuantityPerOuter as integer,\n\t\tIsChillerStock as boolean,\n\t\tBarcode as string,\n\t\tTaxRate as decimal(18,3),\n\t\tUnitPrice as decimal(18,2),\n\t\tRecommendedRetailPrice as decimal(18,2),\n\t\tTypicalWeightPerUnit as decimal(18,3),\n\t\tMarketingComments as string,\n\t\tInternalComments as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tTags as string,\n\t\tSearchDetails as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink6"
+			"script": "source(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> City\nsource(output(\n\t\tCustomerID as integer,\n\t\tCustomerName as string,\n\t\tBillToCustomerID as integer,\n\t\tCustomerCategoryID as integer,\n\t\tBuyingGroupID as integer,\n\t\tPrimaryContactPersonID as integer,\n\t\tAlternateContactPersonID as integer,\n\t\tDeliveryMethodID as integer,\n\t\tDeliveryCityID as integer,\n\t\tPostalCityID as integer,\n\t\tCreditLimit as decimal(18,2),\n\t\tAccountOpenedDate as date,\n\t\tStandardDiscountPercentage as decimal(18,3),\n\t\tIsStatementSent as boolean,\n\t\tIsOnCreditHold as boolean,\n\t\tPaymentDays as integer,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tDeliveryRun as string,\n\t\tRunPosition as string,\n\t\tWebsiteURL as string,\n\t\tDeliveryAddressLine1 as string,\n\t\tDeliveryAddressLine2 as string,\n\t\tDeliveryPostalCode as string,\n\t\tDeliveryLocation as binary,\n\t\tPostalAddressLine1 as string,\n\t\tPostalAddressLine2 as string,\n\t\tPostalPostalCode as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> customer\nsource(output(\n\t\tOrderLineID as integer,\n\t\tOrderID as integer,\n\t\tStockItemID as integer,\n\t\tDescription as string,\n\t\tPackageTypeID as integer,\n\t\tQuantity as integer,\n\t\tUnitPrice as decimal(18,2),\n\t\tTaxRate as decimal(18,3),\n\t\tPickedQuantity as integer,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> OrderLines\nsource(output(\n\t\tOrderID as integer,\n\t\tCustomerID as integer,\n\t\tSalespersonPersonID as integer,\n\t\tPickedByPersonID as integer,\n\t\tContactPersonID as integer,\n\t\tBackorderOrderID as integer,\n\t\tOrderDate as date,\n\t\tExpectedDeliveryDate as date,\n\t\tCustomerPurchaseOrderNumber as string,\n\t\tIsUndersupplyBackordered as boolean,\n\t\tComments as string,\n\t\tDeliveryInstructions as string,\n\t\tInternalComments as string,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> Orders\nsource(output(\n\t\tPackageTypeID as integer,\n\t\tPackageTypeName as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> PackageType\nsource(output(\n\t\tPersonID as integer,\n\t\tFullName as string,\n\t\tPreferredName as string,\n\t\tSearchName as string,\n\t\tIsPermittedToLogon as boolean,\n\t\tLogonName as string,\n\t\tIsExternalLogonProvider as boolean,\n\t\tHashedPassword as binary,\n\t\tIsSystemUser as boolean,\n\t\tIsEmployee as boolean,\n\t\tIsSalesperson as boolean,\n\t\tUserPreferences as string,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tEmailAddress as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tOtherLanguages as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> People\nsource(output(\n\t\tStockItemID as integer,\n\t\tStockItemName as string,\n\t\tSupplierID as integer,\n\t\tColorID as integer,\n\t\tUnitPackageID as integer,\n\t\tOuterPackageID as integer,\n\t\tBrand as string,\n\t\tSize as string,\n\t\tLeadTimeDays as integer,\n\t\tQuantityPerOuter as integer,\n\t\tIsChillerStock as boolean,\n\t\tBarcode as string,\n\t\tTaxRate as decimal(18,3),\n\t\tUnitPrice as decimal(18,2),\n\t\tRecommendedRetailPrice as decimal(18,2),\n\t\tTypicalWeightPerUnit as decimal(18,3),\n\t\tMarketingComments as string,\n\t\tInternalComments as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tTags as string,\n\t\tSearchDetails as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> StockItems\nCity derive(IsActive = 1,\n\t\tSurrogate = 1) ~> addSurrkeyActive\naddSurrkeyActive keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey1\ncustomer derive(IsActive = 1,\n\t\tSurrogate = 1) ~> addCitySurrkey\nOrderLines derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn1\nOrders derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn2\nPackageType derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn3\nPeople derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn4\nStockItems derive(IsActive = 1,\n\t\tSurrogate = 1) ~> DerivedColumn5\naddCitySurrkey keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey2\nDerivedColumn1 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey3\nDerivedColumn2 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey4\nDerivedColumn3 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey5\nDerivedColumn4 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey6\nDerivedColumn5 keyGenerate(output(Surrogate as long),\n\tstartAt: 1L) ~> SurrogateKey7\nSurrogateKey1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> CitySurrAct\nSurrogateKey2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1\nSurrogateKey3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink2\nSurrogateKey4 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink3\nSurrogateKey5 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink4\nSurrogateKey6 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink5\nSurrogateKey7 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink6"
 		}
 	}
 }

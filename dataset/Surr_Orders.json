@@ -1,0 +1,19 @@
+{
+	"name": "Surr_Orders",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_intergration",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "intergration tables"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": "Orders"
+		}
+	}
+}
