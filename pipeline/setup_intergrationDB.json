@@ -1,5 +1,5 @@
 {
-	"name": "copyODStoINT",
+	"name": "setup_intergrationDB",
 	"properties": {
 		"activities": [
 			{

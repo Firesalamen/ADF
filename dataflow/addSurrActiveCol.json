@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "int_Cities",
+						"referenceName": "Ods_Cities",
 						"type": "DatasetReference"
 					},
 					"name": "City"
