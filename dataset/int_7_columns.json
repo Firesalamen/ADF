@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_ytc",
+	"name": "int_7_columns",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_wwi_intergration",

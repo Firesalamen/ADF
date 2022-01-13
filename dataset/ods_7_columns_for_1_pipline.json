@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset_ytc",
+	"name": "ods_7_columns_for_1_pipline",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_wwi_ods",

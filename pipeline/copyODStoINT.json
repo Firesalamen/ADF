@@ -52,7 +52,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SourceDataset_ytc",
+									"referenceName": "ods_7_columns_for_1_pipline",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_schema": "@item().source.schema",
@@ -62,7 +62,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DestinationDataset_ytc",
+									"referenceName": "int_7_columns",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_table": "@item().destination.table"
