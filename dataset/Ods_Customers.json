@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "tables"
+			"name": "ods_tables"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

@@ -1,0 +1,19 @@
+{
+	"name": "Int_OrderLines",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_intergration",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "intergration_tables"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": "OrderLines"
+		}
+	}
+}
