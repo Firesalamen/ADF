@@ -34,9 +34,12 @@
 				},
 				{
 					"name": "Select1"
+				},
+				{
+					"name": "Lookup1"
 				}
 			],
-			"script": "source(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> odsDB\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> intergrationDB\nodsDB derive(IsActive = 1) ~> addingisactive\nintergrationDB select(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\naddingisactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> intergrationCity"
+			"script": "source(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> odsDB\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> intergrationDB\nodsDB derive(IsActive = 1) ~> addingisactive\nintergrationDB select(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nodsDB, Select1 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lookup1\naddingisactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> intergrationCity"
 		}
 	}
 }
