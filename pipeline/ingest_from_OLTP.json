@@ -1,5 +1,5 @@
 {
-	"name": "CopyPipeline_2xh",
+	"name": "ingest_from_OLTP",
 	"properties": {
 		"activities": [
 			{
