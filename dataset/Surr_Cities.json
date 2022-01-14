@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "intergration tables"
+			"name": "intergration_tables_as_sink"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

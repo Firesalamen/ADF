@@ -13,7 +13,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "Surr_Cities",
+						"referenceName": "Int_Cities",
 						"type": "DatasetReference"
 					},
 					"name": "intergrationDB"
@@ -21,7 +21,18 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "Surr_Cities",
+						"type": "DatasetReference"
+					},
 					"name": "intergrationCity"
+				},
+				{
+					"dataset": {
+						"referenceName": "Surr_Cities",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -33,9 +44,21 @@
 				},
 				{
 					"name": "Lookup1"
+				},
+				{
+					"name": "existingRow"
+				},
+				{
+					"name": "Select2"
+				},
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "AlterRow1"
 				}
 			],
-			"script": "source(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> odsDB\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> intergrationDB\nodsDB derive(IsActive = 1) ~> addingisactive\nintergrationDB select(mapColumn(\n\t\tSQL_CityID = CityID,\n\t\tSQL_CityName = CityName,\n\t\tSQL_StateProvinceID = StateProvinceID,\n\t\tSQL_Location = Location,\n\t\tSQL_LatestRecordedPopulation = LatestRecordedPopulation,\n\t\tSQL_LastEditedBy = LastEditedBy,\n\t\tSQL_ValidFrom = ValidFrom,\n\t\tSQL_ValidTo = ValidTo\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nodsDB, Select1 lookup(CityID == SQL_CityID,\n\tmultiple: true,\n\tbroadcast: 'auto')~> Lookup1\naddingisactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> intergrationCity"
+			"script": "source(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> odsDB\nsource(output(\n\t\tCityID as integer,\n\t\tCityName as string,\n\t\tStateProvinceID as integer,\n\t\tLocation as binary,\n\t\tLatestRecordedPopulation as long,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp,\n\t\tIsActive as integer,\n\t\tSurrogate as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> intergrationDB\nodsDB derive(IsActive = 1) ~> addingisactive\nintergrationDB select(mapColumn(\n\t\tSQL_CityID = CityID,\n\t\tSQL_CityName = CityName,\n\t\tSQL_StateProvinceID = StateProvinceID,\n\t\tSQL_Location = Location,\n\t\tSQL_LatestRecordedPopulation = LatestRecordedPopulation,\n\t\tSQL_LastEditedBy = LastEditedBy,\n\t\tSQL_ValidFrom = ValidFrom,\n\t\tSQL_ValidTo = ValidTo,\n\t\tSQL_IsActive = IsActive,\n\t\tSQL_Surrogate = Surrogate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nodsDB, Select1 lookup(CityID == SQL_CityID,\n\tmultiple: true,\n\tbroadcast: 'auto')~> Lookup1\nLookup1 filter(!isNull(SQL_CityID)) ~> existingRow\nexistingRow select(mapColumn(\n\t\tSQL_CityID,\n\t\tSQL_CityName,\n\t\tSQL_StateProvinceID,\n\t\tSQL_Location,\n\t\tSQL_LatestRecordedPopulation,\n\t\tSQL_LastEditedBy,\n\t\tSQL_ValidFrom,\n\t\tSQL_ValidTo,\n\t\tSQL_IsActive,\n\t\tSQL_Surrogate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select2\nSelect2 derive(SQL_IsActive = 0) ~> DerivedColumn1\nDerivedColumn1 alterRow(updateIf(1==1)) ~> AlterRow1\naddingisactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> intergrationCity\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['SQL_Surrogate'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
 		}
 	}
 }
