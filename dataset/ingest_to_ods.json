@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_2xh",
+	"name": "ingest_to_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_wwi_ods",

@@ -1,5 +1,5 @@
 {
-	"name": "ingest_from_OLTP",
+	"name": "from_oltp_to_ODS",
 	"properties": {
 		"activities": [
 			{
@@ -52,7 +52,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SourceDataset_2xh",
+									"referenceName": "ingest_from_oltp",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_schema": "@item().source.schema",
@@ -62,7 +62,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DestinationDataset_2xh",
+									"referenceName": "ingest_to_ods",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_schema": "@item().destination.schema",
