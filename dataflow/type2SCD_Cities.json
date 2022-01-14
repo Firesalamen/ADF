@@ -1,6 +1,7 @@
 {
 	"name": "type2SCD_Cities",
 	"properties": {
+		"description": "source and sink table can't share the same dataset, fix the bug! if the preview does not show, turn data flow debug off then publish then turn it on! if messaging \"key column doesn't exist\", try delete the sink and add sink again, don't change the key column name during the flow. Fix bugs Microsoft!",
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

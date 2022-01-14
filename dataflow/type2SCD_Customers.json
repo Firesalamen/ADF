@@ -1,0 +1,64 @@
+{
+	"name": "type2SCD_Customers",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Ods_Customers",
+						"type": "DatasetReference"
+					},
+					"name": "odsDB"
+				},
+				{
+					"dataset": {
+						"referenceName": "Int_Customers",
+						"type": "DatasetReference"
+					},
+					"name": "intergrationDB"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Surr_Cities",
+						"type": "DatasetReference"
+					},
+					"name": "intergrationCity"
+				},
+				{
+					"dataset": {
+						"referenceName": "Surr_Customers",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "addingisactive"
+				},
+				{
+					"name": "Lookup1"
+				},
+				{
+					"name": "existingRow"
+				},
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Select3"
+				},
+				{
+					"name": "Select4"
+				}
+			],
+			"script": "source(output(\n\t\tCustomerID as integer,\n\t\tCustomerName as string,\n\t\tBillToCustomerID as integer,\n\t\tCustomerCategoryID as integer,\n\t\tBuyingGroupID as integer,\n\t\tPrimaryContactPersonID as integer,\n\t\tAlternateContactPersonID as integer,\n\t\tDeliveryMethodID as integer,\n\t\tDeliveryCityID as integer,\n\t\tPostalCityID as integer,\n\t\tCreditLimit as decimal(18,2),\n\t\tAccountOpenedDate as date,\n\t\tStandardDiscountPercentage as decimal(18,3),\n\t\tIsStatementSent as boolean,\n\t\tIsOnCreditHold as boolean,\n\t\tPaymentDays as integer,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tDeliveryRun as string,\n\t\tRunPosition as string,\n\t\tWebsiteURL as string,\n\t\tDeliveryAddressLine1 as string,\n\t\tDeliveryAddressLine2 as string,\n\t\tDeliveryPostalCode as string,\n\t\tDeliveryLocation as binary,\n\t\tPostalAddressLine1 as string,\n\t\tPostalAddressLine2 as string,\n\t\tPostalPostalCode as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> odsDB\nsource(output(\n\t\tCustomerID as integer,\n\t\tCustomerName as string,\n\t\tBillToCustomerID as integer,\n\t\tCustomerCategoryID as integer,\n\t\tBuyingGroupID as integer,\n\t\tPrimaryContactPersonID as integer,\n\t\tAlternateContactPersonID as integer,\n\t\tDeliveryMethodID as integer,\n\t\tDeliveryCityID as integer,\n\t\tPostalCityID as integer,\n\t\tCreditLimit as decimal(18,2),\n\t\tAccountOpenedDate as date,\n\t\tStandardDiscountPercentage as decimal(18,3),\n\t\tIsStatementSent as boolean,\n\t\tIsOnCreditHold as boolean,\n\t\tPaymentDays as integer,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tDeliveryRun as string,\n\t\tRunPosition as string,\n\t\tWebsiteURL as string,\n\t\tDeliveryAddressLine1 as string,\n\t\tDeliveryAddressLine2 as string,\n\t\tDeliveryPostalCode as string,\n\t\tDeliveryLocation as binary,\n\t\tPostalAddressLine1 as string,\n\t\tPostalAddressLine2 as string,\n\t\tPostalPostalCode as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp,\n\t\tIsActive as integer,\n\t\tSurrogate as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> intergrationDB\nodsDB derive(IsActive = 1) ~> addingisactive\nodsDB, Select3 lookup(CustomerID == SQL_CustomerID,\n\tmultiple: true,\n\tbroadcast: 'auto')~> Lookup1\nLookup1 filter(!isNull(SQL_CustomerID)) ~> existingRow\nSelect4 derive(SQL_IsActive = 0) ~> DerivedColumn1\nDerivedColumn1 alterRow(updateIf(1==1)) ~> AlterRow1\nintergrationDB select(mapColumn(\n\t\tSQL_CustomerID = CustomerID,\n\t\tSQL_CustomerName = CustomerName,\n\t\tSQL_BillToCustomerID = BillToCustomerID,\n\t\tSQL_CustomerCategoryID = CustomerCategoryID,\n\t\tSQL_BuyingGroupID = BuyingGroupID,\n\t\tSQL_PrimaryContactPersonID = PrimaryContactPersonID,\n\t\tSQL_AlternateContactPersonID = AlternateContactPersonID,\n\t\tSQL_DeliveryMethodID = DeliveryMethodID,\n\t\tSQL_DeliveryCityID = DeliveryCityID,\n\t\tSQL_PostalCityID = PostalCityID,\n\t\tSQL_CreditLimit = CreditLimit,\n\t\tSQL_AccountOpenedDate = AccountOpenedDate,\n\t\tSQL_StandardDiscountPercentage = StandardDiscountPercentage,\n\t\tSQL_IsStatementSent = IsStatementSent,\n\t\tSQL_IsOnCreditHold = IsOnCreditHold,\n\t\tSQL_PaymentDays = PaymentDays,\n\t\tSQL_PhoneNumber = PhoneNumber,\n\t\tSQL_FaxNumber = FaxNumber,\n\t\tSQL_DeliveryRun = DeliveryRun,\n\t\tSQL_RunPosition = RunPosition,\n\t\tSQL_WebsiteURL = WebsiteURL,\n\t\tSQL_DeliveryAddressLine1 = DeliveryAddressLine1,\n\t\tSQL_DeliveryAddressLine2 = DeliveryAddressLine2,\n\t\tSQL_DeliveryPostalCode = DeliveryPostalCode,\n\t\tSQL_DeliveryLocation = DeliveryLocation,\n\t\tSQL_PostalAddressLine1 = PostalAddressLine1,\n\t\tSQL_PostalAddressLine2 = PostalAddressLine2,\n\t\tSQL_PostalPostalCode = PostalPostalCode,\n\t\tSQL_LastEditedBy = LastEditedBy,\n\t\tSQL_ValidFrom = ValidFrom,\n\t\tSQL_ValidTo = ValidTo,\n\t\tSQL_IsActive = IsActive,\n\t\tSurrogate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select3\nexistingRow select(mapColumn(\n\t\tSQL_CustomerID,\n\t\tSQL_CustomerName,\n\t\tSQL_BillToCustomerID,\n\t\tSQL_CustomerCategoryID,\n\t\tSQL_BuyingGroupID,\n\t\tSQL_PrimaryContactPersonID,\n\t\tSQL_AlternateContactPersonID,\n\t\tSQL_DeliveryMethodID,\n\t\tSQL_DeliveryCityID,\n\t\tSQL_PostalCityID,\n\t\tSQL_CreditLimit,\n\t\tSQL_AccountOpenedDate,\n\t\tSQL_StandardDiscountPercentage,\n\t\tSQL_IsStatementSent,\n\t\tSQL_IsOnCreditHold,\n\t\tSQL_PaymentDays,\n\t\tSQL_PhoneNumber,\n\t\tSQL_FaxNumber,\n\t\tSQL_DeliveryRun,\n\t\tSQL_RunPosition,\n\t\tSQL_WebsiteURL,\n\t\tSQL_DeliveryAddressLine1,\n\t\tSQL_DeliveryAddressLine2,\n\t\tSQL_DeliveryPostalCode,\n\t\tSQL_DeliveryLocation,\n\t\tSQL_PostalAddressLine1,\n\t\tSQL_PostalAddressLine2,\n\t\tSQL_PostalPostalCode,\n\t\tSQL_LastEditedBy,\n\t\tSQL_ValidFrom,\n\t\tSQL_ValidTo,\n\t\tSQL_IsActive,\n\t\tSurrogate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select4\naddingisactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\terrorHandlingOption: 'stopOnFirstError') ~> intergrationCity\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['Surrogate'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tSQL_CustomerID,\n\t\tSQL_CustomerName,\n\t\tSQL_BillToCustomerID,\n\t\tSQL_CustomerCategoryID,\n\t\tSQL_BuyingGroupID,\n\t\tSQL_PrimaryContactPersonID,\n\t\tSQL_AlternateContactPersonID,\n\t\tSQL_DeliveryMethodID,\n\t\tSQL_DeliveryCityID,\n\t\tSQL_PostalCityID,\n\t\tSQL_CreditLimit,\n\t\tSQL_AccountOpenedDate,\n\t\tSQL_StandardDiscountPercentage,\n\t\tSQL_IsStatementSent,\n\t\tSQL_IsOnCreditHold,\n\t\tSQL_PaymentDays,\n\t\tSQL_PhoneNumber,\n\t\tSQL_FaxNumber,\n\t\tSQL_DeliveryRun,\n\t\tSQL_RunPosition,\n\t\tSQL_WebsiteURL,\n\t\tSQL_DeliveryAddressLine1,\n\t\tSQL_DeliveryAddressLine2,\n\t\tSQL_DeliveryPostalCode,\n\t\tSQL_DeliveryLocation,\n\t\tSQL_PostalAddressLine1,\n\t\tSQL_PostalAddressLine2,\n\t\tSQL_PostalPostalCode,\n\t\tSQL_LastEditedBy,\n\t\tSQL_ValidFrom,\n\t\tSQL_ValidTo,\n\t\tSQL_IsActive,\n\t\tSurrogate\n\t)) ~> sink1"
+		}
+	}
+}
