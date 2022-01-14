@@ -1,6 +1,7 @@
 {
 	"name": "type2SCD_OrderLines",
 	"properties": {
+		"description": "no output data, probably because the sampling of the database is only 1000, try change debug settings, don't recommend cuz slow.",
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
