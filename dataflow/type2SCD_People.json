@@ -1,0 +1,64 @@
+{
+	"name": "type2SCD_People",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Ods_People",
+						"type": "DatasetReference"
+					},
+					"name": "odsDB"
+				},
+				{
+					"dataset": {
+						"referenceName": "Int_People",
+						"type": "DatasetReference"
+					},
+					"name": "intergrationDB"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Surr_PackageType",
+						"type": "DatasetReference"
+					},
+					"name": "intergrationPlusAct"
+				},
+				{
+					"dataset": {
+						"referenceName": "Int_People",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "addingisactive"
+				},
+				{
+					"name": "Lookup1"
+				},
+				{
+					"name": "existingRow"
+				},
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Select3"
+				},
+				{
+					"name": "Select4"
+				}
+			],
+			"script": "source(output(\n\t\tPersonID as integer,\n\t\tFullName as string,\n\t\tPreferredName as string,\n\t\tSearchName as string,\n\t\tIsPermittedToLogon as boolean,\n\t\tLogonName as string,\n\t\tIsExternalLogonProvider as boolean,\n\t\tHashedPassword as binary,\n\t\tIsSystemUser as boolean,\n\t\tIsEmployee as boolean,\n\t\tIsSalesperson as boolean,\n\t\tUserPreferences as string,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tEmailAddress as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tOtherLanguages as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> odsDB\nsource(output(\n\t\tPersonID as integer,\n\t\tFullName as string,\n\t\tPreferredName as string,\n\t\tSearchName as string,\n\t\tIsPermittedToLogon as boolean,\n\t\tLogonName as string,\n\t\tIsExternalLogonProvider as boolean,\n\t\tHashedPassword as binary,\n\t\tIsSystemUser as boolean,\n\t\tIsEmployee as boolean,\n\t\tIsSalesperson as boolean,\n\t\tUserPreferences as string,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tEmailAddress as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tOtherLanguages as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp,\n\t\tIsActive as integer,\n\t\tSurrogate as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> intergrationDB\nodsDB derive(IsActive = 1) ~> addingisactive\nodsDB, Select3 lookup(PersonID == SQL_PersonID,\n\tmultiple: true,\n\tbroadcast: 'auto')~> Lookup1\nLookup1 filter(!isNull(SQL_PersonID)) ~> existingRow\nSelect4 derive(SQL_IsActive = 0) ~> DerivedColumn1\nDerivedColumn1 alterRow(updateIf(1==1)) ~> AlterRow1\nintergrationDB select(mapColumn(\n\t\tSQL_PersonID = PersonID,\n\t\tSQL_FullName = FullName,\n\t\tSQL_PreferredName = PreferredName,\n\t\tSQL_SearchName = SearchName,\n\t\tSQL_IsPermittedToLogon = IsPermittedToLogon,\n\t\tSQL_LogonName = LogonName,\n\t\tSQL_IsExternalLogonProvider = IsExternalLogonProvider,\n\t\tSQL_HashedPassword = HashedPassword,\n\t\tSQL_IsSystemUser = IsSystemUser,\n\t\tSQL_IsEmployee = IsEmployee,\n\t\tSQL_IsSalesperson = IsSalesperson,\n\t\tSQL_UserPreferences = UserPreferences,\n\t\tSQL_PhoneNumber = PhoneNumber,\n\t\tSQL_FaxNumber = FaxNumber,\n\t\tSQL_EmailAddress = EmailAddress,\n\t\tSQL_Photo = Photo,\n\t\tSQL_CustomFields = CustomFields,\n\t\tSQL_OtherLanguages = OtherLanguages,\n\t\tSQL_LastEditedBy = LastEditedBy,\n\t\tSQL_ValidFrom = ValidFrom,\n\t\tSQL_ValidTo = ValidTo,\n\t\tSQL_IsActive = IsActive,\n\t\tSurrogate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select3\nexistingRow select(mapColumn(\n\t\tSQL_PersonID,\n\t\tSQL_FullName,\n\t\tSQL_PreferredName,\n\t\tSQL_SearchName,\n\t\tSQL_IsPermittedToLogon,\n\t\tSQL_LogonName,\n\t\tSQL_IsExternalLogonProvider,\n\t\tSQL_HashedPassword,\n\t\tSQL_IsSystemUser,\n\t\tSQL_IsEmployee,\n\t\tSQL_IsSalesperson,\n\t\tSQL_UserPreferences,\n\t\tSQL_PhoneNumber,\n\t\tSQL_FaxNumber,\n\t\tSQL_EmailAddress,\n\t\tSQL_Photo,\n\t\tSQL_CustomFields,\n\t\tSQL_OtherLanguages,\n\t\tSQL_LastEditedBy,\n\t\tSQL_ValidFrom,\n\t\tSQL_ValidTo,\n\t\tSQL_IsActive,\n\t\tSQL_Surrogate = Surrogate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select4\naddingisactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\terrorHandlingOption: 'stopOnFirstError') ~> intergrationPlusAct\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tPersonID as integer,\n\t\tFullName as string,\n\t\tPreferredName as string,\n\t\tSearchName as string,\n\t\tIsPermittedToLogon as boolean,\n\t\tLogonName as string,\n\t\tIsExternalLogonProvider as boolean,\n\t\tHashedPassword as binary,\n\t\tIsSystemUser as boolean,\n\t\tIsEmployee as boolean,\n\t\tIsSalesperson as boolean,\n\t\tUserPreferences as string,\n\t\tPhoneNumber as string,\n\t\tFaxNumber as string,\n\t\tEmailAddress as string,\n\t\tPhoto as binary,\n\t\tCustomFields as string,\n\t\tOtherLanguages as string,\n\t\tLastEditedBy as integer,\n\t\tValidFrom as timestamp,\n\t\tValidTo as timestamp,\n\t\tIsActive as integer,\n\t\tSurrogate as long\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['Surrogate'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tPersonID = SQL_PersonID,\n\t\tFullName = SQL_FullName,\n\t\tPreferredName = SQL_PreferredName,\n\t\tSearchName = SQL_SearchName,\n\t\tIsPermittedToLogon = SQL_IsPermittedToLogon,\n\t\tLogonName = SQL_LogonName,\n\t\tIsExternalLogonProvider = SQL_IsExternalLogonProvider,\n\t\tHashedPassword = SQL_HashedPassword,\n\t\tIsSystemUser = SQL_IsSystemUser,\n\t\tIsEmployee = SQL_IsEmployee,\n\t\tIsSalesperson = SQL_IsSalesperson,\n\t\tUserPreferences = SQL_UserPreferences,\n\t\tPhoneNumber = SQL_PhoneNumber,\n\t\tFaxNumber = SQL_FaxNumber,\n\t\tEmailAddress = SQL_EmailAddress,\n\t\tPhoto = SQL_Photo,\n\t\tCustomFields = SQL_CustomFields,\n\t\tOtherLanguages = SQL_OtherLanguages,\n\t\tLastEditedBy = SQL_LastEditedBy,\n\t\tValidFrom = SQL_ValidFrom,\n\t\tValidTo = SQL_ValidTo,\n\t\tIsActive = SQL_IsActive,\n\t\tSurrogate = SQL_Surrogate\n\t)) ~> sink1"
+		}
+	}
+}
