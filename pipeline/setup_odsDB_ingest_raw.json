@@ -1,5 +1,5 @@
 {
-	"name": "setup_odsDB",
+	"name": "setup_odsDB_ingest_raw",
 	"properties": {
 		"description": "This part is to copy part of the tables from the WWI oltp database to ods. Run this pipeline ONLY when your ods is empty!!",
 		"activities": [
