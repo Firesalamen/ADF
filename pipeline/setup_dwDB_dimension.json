@@ -1,0 +1,33 @@
+{
+	"name": "setup_dwDB_dimension",
+	"properties": {
+		"description": "NEVER RUN AGAIN!! dw table's dimension shall not change frequently, run only when dw is totally empty.",
+		"activities": [
+			{
+				"name": "from_Int_to_dw_dimension",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "from_Int_to_dw_dimension",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
