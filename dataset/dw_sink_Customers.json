@@ -1,0 +1,16 @@
+{
+	"name": "dw_sink_Customers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_dw",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Dimension",
+			"table": "Customers"
+		}
+	}
+}
