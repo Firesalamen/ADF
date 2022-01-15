@@ -5,6 +5,9 @@
 			"referenceName": "adf_wwi_dw",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "dw_tables"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
