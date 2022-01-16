@@ -1,0 +1,33 @@
+{
+	"name": "from_Int_to_DW",
+	"properties": {
+		"description": "this part shall run for only the Fact table. Some modifies needed because the city key is not associated with the fact table and this pipeline fixed it in a hardcoding. run with cares.",
+		"activities": [
+			{
+				"name": "from_Int_to_dw_fact",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "from_Int_to_dw_fact",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
