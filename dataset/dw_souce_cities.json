@@ -1,0 +1,58 @@
+{
+	"name": "dw_souce_cities",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_dw",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "dw_tables_as_source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "WWI_CityID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CityName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Location",
+				"type": "varbinary"
+			},
+			{
+				"name": "LatestRecordedPopulation",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ValidFrom",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ValidTo",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "IsActive",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "City_Key",
+				"type": "bigint",
+				"precision": 19
+			}
+		],
+		"typeProperties": {
+			"schema": "Dimension",
+			"table": "Cities"
+		}
+	}
+}

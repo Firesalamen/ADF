@@ -1,5 +1,5 @@
 {
-	"name": "dw_sink_cities",
+	"name": "dw_sink_Orders_fact",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adf_wwi_dw",
@@ -12,8 +12,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "Dimension",
-			"table": "Cities"
+			"schema": "Fact",
+			"table": "Orders"
 		}
 	}
 }

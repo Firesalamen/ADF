@@ -1,0 +1,56 @@
+{
+	"name": "dw_source_customers",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_dw",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "dw_tables_as_source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Customer_Key",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "CustomerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CustomerName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BillToCustomer",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PrimaryContactPerson",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PostalPostalCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ValidFrom",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ValidTo",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "Dimension",
+			"table": "Customers"
+		}
+	}
+}

@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "dw_tables"
+			"name": "dw_tables_as_sink"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

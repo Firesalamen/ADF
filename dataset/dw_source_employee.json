@@ -1,0 +1,56 @@
+{
+	"name": "dw_source_employee",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_dw",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "dw_tables_as_source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Employee_Key",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "WWIEmployeeID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmployeeName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PreferredName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsSalesperson",
+				"type": "bit"
+			},
+			{
+				"name": "Photo",
+				"type": "varbinary"
+			},
+			{
+				"name": "ValidFrom",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ValidTo",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "Dimension",
+			"table": "Employee"
+		}
+	}
+}

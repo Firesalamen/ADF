@@ -1,0 +1,106 @@
+{
+	"name": "dw_source_stockItems",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adf_wwi_dw",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "dw_tables_as_source"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "StockItem_Key",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "StockItemID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "StockItemName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "UnitPackage",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OuterPackage",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Brand",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Size",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LeadTimeDays",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "QuantityPerOuter",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IsChillerStock",
+				"type": "bit"
+			},
+			{
+				"name": "Barcode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TaxRate",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 3
+			},
+			{
+				"name": "UnitPrice",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "RecommendedRetailPrice",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "TypicalWeightPerUnit",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 3
+			},
+			{
+				"name": "Photo",
+				"type": "varbinary"
+			},
+			{
+				"name": "ValidFrom",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ValidTo",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "Dimension",
+			"table": "StockItems"
+		}
+	}
+}
