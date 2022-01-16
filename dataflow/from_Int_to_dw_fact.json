@@ -1,0 +1,34 @@
+{
+	"name": "from_Int_to_dw_fact",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Int_Orders",
+						"type": "DatasetReference"
+					},
+					"name": "orders"
+				},
+				{
+					"dataset": {
+						"referenceName": "Int_OrderLines",
+						"type": "DatasetReference"
+					},
+					"name": "orderline"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "Select1"
+				}
+			],
+			"script": "source(output(\n\t\tOrderID as integer,\n\t\tCustomerID as integer,\n\t\tSalespersonPersonID as integer,\n\t\tPickedByPersonID as integer,\n\t\tContactPersonID as integer,\n\t\tBackorderOrderID as integer,\n\t\tOrderDate as date,\n\t\tExpectedDeliveryDate as date,\n\t\tCustomerPurchaseOrderNumber as string,\n\t\tIsUndersupplyBackordered as boolean,\n\t\tComments as string,\n\t\tDeliveryInstructions as string,\n\t\tInternalComments as string,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp,\n\t\tIsActive as integer,\n\t\tSurrogate as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> orders\nsource(output(\n\t\tOrderLineID as integer,\n\t\tOrderID as integer,\n\t\tStockItemID as integer,\n\t\tDescription as string,\n\t\tPackageTypeID as integer,\n\t\tQuantity as integer,\n\t\tUnitPrice as decimal(18,2),\n\t\tTaxRate as decimal(18,3),\n\t\tPickedQuantity as integer,\n\t\tPickingCompletedWhen as timestamp,\n\t\tLastEditedBy as integer,\n\t\tLastEditedWhen as timestamp,\n\t\tIsActive as integer,\n\t\tSurrogate as long\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> orderline\norderline, orders join(orderline@OrderID == orders@OrderID,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join1\nJoin1 select(mapColumn(\n\t\tOrderLineID,\n\t\tCustomerID,\n\t\tStockItemID,\n\t\tOrderDate,\n\t\tPickingCompletedWhen = orderline@PickingCompletedWhen,\n\t\tSalespersonPersonID,\n\t\tPickedByPersonID,\n\t\tOrderID = orderline@OrderID,\n\t\tBackorderOrderID,\n\t\tDescription,\n\t\tPackageTypeID,\n\t\tQuantity,\n\t\tUnitPrice,\n\t\tTaxRate\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1"
+		}
+	}
+}
